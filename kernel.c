@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "io.h"
+#include "std.h"
  
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)
@@ -57,14 +58,6 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t) uc | (uint16_t) color << 8;
 }
  
-size_t strlen(const char* str) 
-{
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
-}
- 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
  
@@ -73,8 +66,7 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
  
-void terminal_initialize(void) 
-{
+void terminal_initialize(void) {
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
@@ -87,19 +79,28 @@ void terminal_initialize(void)
 	}
 }
  
-void terminal_setcolor(uint8_t color) 
-{
+void terminal_setcolor(uint8_t color) {
 	terminal_color = color;
 }
  
+void terminal_update_cursor(int x, int y) {
+	uint16_t pos = y * VGA_WIDTH + x;
+
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+}
+
 void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) 
 {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = vga_entry(c, color);
+
+	terminal_update_cursor(x+1, y);
 }
  
-void terminal_putchar(char c) 
-{
+void terminal_putchar(char c) {
 	if (c == '\n') {
 		terminal_column = 0;
 		terminal_row++;
@@ -147,13 +148,17 @@ void kernel_main(void)
 	/* Initialize terminal interface */
 	terminal_initialize();
  
-	/* Newline support is left as an exercise. */
-	terminal_writestring("Hello, kernel World!\n");
+	terminal_putchar('>');
+
+	terminal_putchar('\n');
+
+	output_registers();
+
 
 	while (true) {
     	char k = waitkey();
 		terminal_putchar(SCANCODE_SET_1[k]);
 	}
 
-	terminal_putchar('t');
+	terminal_putchar('!');
 }
