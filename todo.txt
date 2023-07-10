@@ -1,0 +1,5 @@
+[] write to drive
+[] basic file system
+
+[] basic text editor (nano clone)
+[.] basic command line

@@ -1,0 +1,559 @@
+
+myos.bin:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00100000 <_start-0xc>:
+  100000:	02 b0 ad 1b 03 00    	add    0x31bad(%eax),%dh
+  100006:	00 00                	add    %al,(%eax)
+  100008:	fb                   	sti    
+  100009:	4f                   	dec    %edi
+  10000a:	52                   	push   %edx
+  10000b:	e4                   	.byte 0xe4
+
+0010000c <_start>:
+  10000c:	bc 00 60 10 00       	mov    $0x106000,%esp
+  100011:	e8 2a 03 00 00       	call   100340 <kernel_main>
+  100016:	fa                   	cli    
+  100017:	f4                   	hlt    
+  100018:	eb fd                	jmp    100017 <_start+0xb>
+  10001a:	66 90                	xchg   %ax,%ax
+  10001c:	66 90                	xchg   %ax,%ax
+  10001e:	66 90                	xchg   %ax,%ax
+
+00100020 <drive_write>:
+  100020:	90                   	nop
+  100021:	cd 13                	int    $0x13
+  100023:	c3                   	ret    
+  100024:	66 90                	xchg   %ax,%ax
+  100026:	66 90                	xchg   %ax,%ax
+  100028:	66 90                	xchg   %ax,%ax
+  10002a:	66 90                	xchg   %ax,%ax
+  10002c:	66 90                	xchg   %ax,%ax
+  10002e:	66 90                	xchg   %ax,%ax
+
+00100030 <terminal_initialize>:
+  100030:	c7 05 0c 60 10 00 00 	movl   $0x0,0x10600c
+  100037:	00 00 00 
+  10003a:	ba a0 80 0b 00       	mov    $0xb80a0,%edx
+  10003f:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  100046:	00 00 00 
+  100049:	c6 05 04 60 10 00 07 	movb   $0x7,0x106004
+  100050:	c7 05 00 60 10 00 00 	movl   $0xb8000,0x106000
+  100057:	80 0b 00 
+  10005a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100060:	8d 82 60 ff ff ff    	lea    -0xa0(%edx),%eax
+  100066:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10006d:	8d 76 00             	lea    0x0(%esi),%esi
+  100070:	b9 20 07 00 00       	mov    $0x720,%ecx
+  100075:	83 c0 04             	add    $0x4,%eax
+  100078:	66 89 48 fc          	mov    %cx,-0x4(%eax)
+  10007c:	b9 20 07 00 00       	mov    $0x720,%ecx
+  100081:	66 89 48 fe          	mov    %cx,-0x2(%eax)
+  100085:	39 d0                	cmp    %edx,%eax
+  100087:	75 e7                	jne    100070 <terminal_initialize+0x40>
+  100089:	8d 90 a0 00 00 00    	lea    0xa0(%eax),%edx
+  10008f:	3d a0 8f 0b 00       	cmp    $0xb8fa0,%eax
+  100094:	75 ca                	jne    100060 <terminal_initialize+0x30>
+  100096:	c3                   	ret    
+  100097:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10009e:	66 90                	xchg   %ax,%ax
+
+001000a0 <terminal_setcolor>:
+  1000a0:	55                   	push   %ebp
+  1000a1:	89 e5                	mov    %esp,%ebp
+  1000a3:	8b 45 08             	mov    0x8(%ebp),%eax
+  1000a6:	5d                   	pop    %ebp
+  1000a7:	a2 04 60 10 00       	mov    %al,0x106004
+  1000ac:	c3                   	ret    
+  1000ad:	8d 76 00             	lea    0x0(%esi),%esi
+
+001000b0 <terminal_update_cursor>:
+  1000b0:	55                   	push   %ebp
+  1000b1:	89 e5                	mov    %esp,%ebp
+  1000b3:	53                   	push   %ebx
+  1000b4:	83 ec 0c             	sub    $0xc,%esp
+  1000b7:	8b 5d 0c             	mov    0xc(%ebp),%ebx
+  1000ba:	6a 0f                	push   $0xf
+  1000bc:	68 d4 03 00 00       	push   $0x3d4
+  1000c1:	8d 1c 9b             	lea    (%ebx,%ebx,4),%ebx
+  1000c4:	c1 e3 04             	shl    $0x4,%ebx
+  1000c7:	66 03 5d 08          	add    0x8(%ebp),%bx
+  1000cb:	e8 e0 02 00 00       	call   1003b0 <outb>
+  1000d0:	58                   	pop    %eax
+  1000d1:	0f b6 c3             	movzbl %bl,%eax
+  1000d4:	5a                   	pop    %edx
+  1000d5:	50                   	push   %eax
+  1000d6:	0f b6 df             	movzbl %bh,%ebx
+  1000d9:	68 d5 03 00 00       	push   $0x3d5
+  1000de:	e8 cd 02 00 00       	call   1003b0 <outb>
+  1000e3:	59                   	pop    %ecx
+  1000e4:	58                   	pop    %eax
+  1000e5:	6a 0e                	push   $0xe
+  1000e7:	68 d4 03 00 00       	push   $0x3d4
+  1000ec:	e8 bf 02 00 00       	call   1003b0 <outb>
+  1000f1:	89 5d 0c             	mov    %ebx,0xc(%ebp)
+  1000f4:	83 c4 10             	add    $0x10,%esp
+  1000f7:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  1000fa:	c7 45 08 d5 03 00 00 	movl   $0x3d5,0x8(%ebp)
+  100101:	c9                   	leave  
+  100102:	e9 a9 02 00 00       	jmp    1003b0 <outb>
+  100107:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10010e:	66 90                	xchg   %ax,%ax
+
+00100110 <terminal_putentryat>:
+  100110:	55                   	push   %ebp
+  100111:	89 e5                	mov    %esp,%ebp
+  100113:	56                   	push   %esi
+  100114:	53                   	push   %ebx
+  100115:	8b 45 14             	mov    0x14(%ebp),%eax
+  100118:	0f b6 4d 0c          	movzbl 0xc(%ebp),%ecx
+  10011c:	0f b6 75 08          	movzbl 0x8(%ebp),%esi
+  100120:	8b 5d 10             	mov    0x10(%ebp),%ebx
+  100123:	8d 14 80             	lea    (%eax,%eax,4),%edx
+  100126:	8d 04 80             	lea    (%eax,%eax,4),%eax
+  100129:	c1 e1 08             	shl    $0x8,%ecx
+  10012c:	c1 e2 04             	shl    $0x4,%edx
+  10012f:	83 ec 08             	sub    $0x8,%esp
+  100132:	09 f1                	or     %esi,%ecx
+  100134:	8b 35 00 60 10 00    	mov    0x106000,%esi
+  10013a:	01 da                	add    %ebx,%edx
+  10013c:	c1 e0 04             	shl    $0x4,%eax
+  10013f:	8d 5c 18 01          	lea    0x1(%eax,%ebx,1),%ebx
+  100143:	66 89 0c 56          	mov    %cx,(%esi,%edx,2)
+  100147:	6a 0f                	push   $0xf
+  100149:	68 d4 03 00 00       	push   $0x3d4
+  10014e:	e8 5d 02 00 00       	call   1003b0 <outb>
+  100153:	58                   	pop    %eax
+  100154:	0f b6 c3             	movzbl %bl,%eax
+  100157:	5a                   	pop    %edx
+  100158:	50                   	push   %eax
+  100159:	0f b6 df             	movzbl %bh,%ebx
+  10015c:	68 d5 03 00 00       	push   $0x3d5
+  100161:	e8 4a 02 00 00       	call   1003b0 <outb>
+  100166:	59                   	pop    %ecx
+  100167:	5e                   	pop    %esi
+  100168:	6a 0e                	push   $0xe
+  10016a:	68 d4 03 00 00       	push   $0x3d4
+  10016f:	e8 3c 02 00 00       	call   1003b0 <outb>
+  100174:	89 5d 0c             	mov    %ebx,0xc(%ebp)
+  100177:	83 c4 10             	add    $0x10,%esp
+  10017a:	c7 45 08 d5 03 00 00 	movl   $0x3d5,0x8(%ebp)
+  100181:	8d 65 f8             	lea    -0x8(%ebp),%esp
+  100184:	5b                   	pop    %ebx
+  100185:	5e                   	pop    %esi
+  100186:	5d                   	pop    %ebp
+  100187:	e9 24 02 00 00       	jmp    1003b0 <outb>
+  10018c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+
+00100190 <terminal_putchar.part.0>:
+  100190:	55                   	push   %ebp
+  100191:	89 e5                	mov    %esp,%ebp
+  100193:	53                   	push   %ebx
+  100194:	83 ec 04             	sub    $0x4,%esp
+  100197:	8b 0d 0c 60 10 00    	mov    0x10600c,%ecx
+  10019d:	8b 15 08 60 10 00    	mov    0x106008,%edx
+  1001a3:	0f b6 1d 04 60 10 00 	movzbl 0x106004,%ebx
+  1001aa:	3c 08                	cmp    $0x8,%al
+  1001ac:	74 52                	je     100200 <terminal_putchar.part.0+0x70>
+  1001ae:	0f be c0             	movsbl %al,%eax
+  1001b1:	51                   	push   %ecx
+  1001b2:	52                   	push   %edx
+  1001b3:	53                   	push   %ebx
+  1001b4:	50                   	push   %eax
+  1001b5:	e8 56 ff ff ff       	call   100110 <terminal_putentryat>
+  1001ba:	a1 08 60 10 00       	mov    0x106008,%eax
+  1001bf:	83 c4 10             	add    $0x10,%esp
+  1001c2:	8d 50 01             	lea    0x1(%eax),%edx
+  1001c5:	83 f8 4f             	cmp    $0x4f,%eax
+  1001c8:	74 0e                	je     1001d8 <terminal_putchar.part.0+0x48>
+  1001ca:	89 15 08 60 10 00    	mov    %edx,0x106008
+  1001d0:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  1001d3:	c9                   	leave  
+  1001d4:	c3                   	ret    
+  1001d5:	8d 76 00             	lea    0x0(%esi),%esi
+  1001d8:	8b 15 0c 60 10 00    	mov    0x10600c,%edx
+  1001de:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  1001e1:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  1001e8:	00 00 00 
+  1001eb:	8d 42 01             	lea    0x1(%edx),%eax
+  1001ee:	83 fa 18             	cmp    $0x18,%edx
+  1001f1:	ba 00 00 00 00       	mov    $0x0,%edx
+  1001f6:	0f 44 c2             	cmove  %edx,%eax
+  1001f9:	a3 0c 60 10 00       	mov    %eax,0x10600c
+  1001fe:	c9                   	leave  
+  1001ff:	c3                   	ret    
+  100200:	85 d2                	test   %edx,%edx
+  100202:	75 24                	jne    100228 <terminal_putchar.part.0+0x98>
+  100204:	85 c9                	test   %ecx,%ecx
+  100206:	74 29                	je     100231 <terminal_putchar.part.0+0xa1>
+  100208:	83 e9 01             	sub    $0x1,%ecx
+  10020b:	ba 4f 00 00 00       	mov    $0x4f,%edx
+  100210:	c7 05 08 60 10 00 4f 	movl   $0x4f,0x106008
+  100217:	00 00 00 
+  10021a:	89 0d 0c 60 10 00    	mov    %ecx,0x10600c
+  100220:	eb 0f                	jmp    100231 <terminal_putchar.part.0+0xa1>
+  100222:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100228:	83 ea 01             	sub    $0x1,%edx
+  10022b:	89 15 08 60 10 00    	mov    %edx,0x106008
+  100231:	51                   	push   %ecx
+  100232:	52                   	push   %edx
+  100233:	53                   	push   %ebx
+  100234:	6a 20                	push   $0x20
+  100236:	e8 d5 fe ff ff       	call   100110 <terminal_putentryat>
+  10023b:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  10023e:	83 c4 10             	add    $0x10,%esp
+  100241:	c9                   	leave  
+  100242:	c3                   	ret    
+  100243:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10024a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+00100250 <terminal_putchar>:
+  100250:	55                   	push   %ebp
+  100251:	89 e5                	mov    %esp,%ebp
+  100253:	8b 45 08             	mov    0x8(%ebp),%eax
+  100256:	3c 0a                	cmp    $0xa,%al
+  100258:	74 16                	je     100270 <terminal_putchar+0x20>
+  10025a:	84 c0                	test   %al,%al
+  10025c:	74 23                	je     100281 <terminal_putchar+0x31>
+  10025e:	0f be c0             	movsbl %al,%eax
+  100261:	5d                   	pop    %ebp
+  100262:	e9 29 ff ff ff       	jmp    100190 <terminal_putchar.part.0>
+  100267:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10026e:	66 90                	xchg   %ax,%ax
+  100270:	83 05 0c 60 10 00 01 	addl   $0x1,0x10600c
+  100277:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  10027e:	00 00 00 
+  100281:	5d                   	pop    %ebp
+  100282:	c3                   	ret    
+  100283:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10028a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+00100290 <terminal_write>:
+  100290:	55                   	push   %ebp
+  100291:	89 e5                	mov    %esp,%ebp
+  100293:	56                   	push   %esi
+  100294:	8b 75 0c             	mov    0xc(%ebp),%esi
+  100297:	53                   	push   %ebx
+  100298:	85 f6                	test   %esi,%esi
+  10029a:	74 3b                	je     1002d7 <terminal_write+0x47>
+  10029c:	8b 5d 08             	mov    0x8(%ebp),%ebx
+  10029f:	01 de                	add    %ebx,%esi
+  1002a1:	eb 15                	jmp    1002b8 <terminal_write+0x28>
+  1002a3:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  1002a7:	90                   	nop
+  1002a8:	84 c0                	test   %al,%al
+  1002aa:	74 05                	je     1002b1 <terminal_write+0x21>
+  1002ac:	e8 df fe ff ff       	call   100190 <terminal_putchar.part.0>
+  1002b1:	83 c3 01             	add    $0x1,%ebx
+  1002b4:	39 f3                	cmp    %esi,%ebx
+  1002b6:	74 1f                	je     1002d7 <terminal_write+0x47>
+  1002b8:	0f be 03             	movsbl (%ebx),%eax
+  1002bb:	3c 0a                	cmp    $0xa,%al
+  1002bd:	75 e9                	jne    1002a8 <terminal_write+0x18>
+  1002bf:	83 c3 01             	add    $0x1,%ebx
+  1002c2:	83 05 0c 60 10 00 01 	addl   $0x1,0x10600c
+  1002c9:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  1002d0:	00 00 00 
+  1002d3:	39 f3                	cmp    %esi,%ebx
+  1002d5:	75 e1                	jne    1002b8 <terminal_write+0x28>
+  1002d7:	5b                   	pop    %ebx
+  1002d8:	5e                   	pop    %esi
+  1002d9:	5d                   	pop    %ebp
+  1002da:	c3                   	ret    
+  1002db:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  1002df:	90                   	nop
+
+001002e0 <terminal_writestring>:
+  1002e0:	55                   	push   %ebp
+  1002e1:	89 e5                	mov    %esp,%ebp
+  1002e3:	56                   	push   %esi
+  1002e4:	53                   	push   %ebx
+  1002e5:	8b 5d 08             	mov    0x8(%ebp),%ebx
+  1002e8:	83 ec 0c             	sub    $0xc,%esp
+  1002eb:	53                   	push   %ebx
+  1002ec:	e8 6f 02 00 00       	call   100560 <strlen>
+  1002f1:	83 c4 10             	add    $0x10,%esp
+  1002f4:	85 c0                	test   %eax,%eax
+  1002f6:	74 37                	je     10032f <terminal_writestring+0x4f>
+  1002f8:	8d 34 03             	lea    (%ebx,%eax,1),%esi
+  1002fb:	eb 13                	jmp    100310 <terminal_writestring+0x30>
+  1002fd:	8d 76 00             	lea    0x0(%esi),%esi
+  100300:	84 c0                	test   %al,%al
+  100302:	74 05                	je     100309 <terminal_writestring+0x29>
+  100304:	e8 87 fe ff ff       	call   100190 <terminal_putchar.part.0>
+  100309:	83 c3 01             	add    $0x1,%ebx
+  10030c:	39 f3                	cmp    %esi,%ebx
+  10030e:	74 1f                	je     10032f <terminal_writestring+0x4f>
+  100310:	0f be 03             	movsbl (%ebx),%eax
+  100313:	3c 0a                	cmp    $0xa,%al
+  100315:	75 e9                	jne    100300 <terminal_writestring+0x20>
+  100317:	83 c3 01             	add    $0x1,%ebx
+  10031a:	83 05 0c 60 10 00 01 	addl   $0x1,0x10600c
+  100321:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  100328:	00 00 00 
+  10032b:	39 f3                	cmp    %esi,%ebx
+  10032d:	75 e1                	jne    100310 <terminal_writestring+0x30>
+  10032f:	8d 65 f8             	lea    -0x8(%ebp),%esp
+  100332:	5b                   	pop    %ebx
+  100333:	5e                   	pop    %esi
+  100334:	5d                   	pop    %ebp
+  100335:	c3                   	ret    
+  100336:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  10033d:	8d 76 00             	lea    0x0(%esi),%esi
+
+00100340 <kernel_main>:
+  100340:	55                   	push   %ebp
+  100341:	89 e5                	mov    %esp,%ebp
+  100343:	83 ec 08             	sub    $0x8,%esp
+  100346:	e8 e5 fc ff ff       	call   100030 <terminal_initialize>
+  10034b:	83 ec 0c             	sub    $0xc,%esp
+  10034e:	6a 3e                	push   $0x3e
+  100350:	e8 fb fe ff ff       	call   100250 <terminal_putchar>
+  100355:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  10035c:	e8 ef fe ff ff       	call   100250 <terminal_putchar>
+  100361:	e8 7a 00 00 00       	call   1003e0 <output_registers>
+  100366:	e8 b5 fc ff ff       	call   100020 <drive_write>
+  10036b:	83 c4 10             	add    $0x10,%esp
+  10036e:	66 90                	xchg   %ax,%ax
+  100370:	e8 5b 00 00 00       	call   1003d0 <waitkey>
+  100375:	0f be c0             	movsbl %al,%eax
+  100378:	0f be 80 00 10 10 00 	movsbl 0x101000(%eax),%eax
+  10037f:	3c 0a                	cmp    $0xa,%al
+  100381:	74 0d                	je     100390 <kernel_main+0x50>
+  100383:	84 c0                	test   %al,%al
+  100385:	74 e9                	je     100370 <kernel_main+0x30>
+  100387:	e8 04 fe ff ff       	call   100190 <terminal_putchar.part.0>
+  10038c:	eb e2                	jmp    100370 <kernel_main+0x30>
+  10038e:	66 90                	xchg   %ax,%ax
+  100390:	83 05 0c 60 10 00 01 	addl   $0x1,0x10600c
+  100397:	c7 05 08 60 10 00 00 	movl   $0x0,0x106008
+  10039e:	00 00 00 
+  1003a1:	eb cd                	jmp    100370 <kernel_main+0x30>
+  1003a3:	66 90                	xchg   %ax,%ax
+  1003a5:	66 90                	xchg   %ax,%ax
+  1003a7:	66 90                	xchg   %ax,%ax
+  1003a9:	66 90                	xchg   %ax,%ax
+  1003ab:	66 90                	xchg   %ax,%ax
+  1003ad:	66 90                	xchg   %ax,%ax
+  1003af:	90                   	nop
+
+001003b0 <outb>:
+  1003b0:	55                   	push   %ebp
+  1003b1:	89 e5                	mov    %esp,%ebp
+  1003b3:	0f b7 55 08          	movzwl 0x8(%ebp),%edx
+  1003b7:	0f b6 45 0c          	movzbl 0xc(%ebp),%eax
+  1003bb:	ee                   	out    %al,(%dx)
+  1003bc:	5d                   	pop    %ebp
+  1003bd:	c3                   	ret    
+  1003be:	66 90                	xchg   %ax,%ax
+
+001003c0 <inb>:
+  1003c0:	55                   	push   %ebp
+  1003c1:	89 e5                	mov    %esp,%ebp
+  1003c3:	8b 55 08             	mov    0x8(%ebp),%edx
+  1003c6:	ec                   	in     (%dx),%al
+  1003c7:	5d                   	pop    %ebp
+  1003c8:	c3                   	ret    
+  1003c9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+001003d0 <waitkey>:
+  1003d0:	e4 64                	in     $0x64,%al
+  1003d2:	a8 01                	test   $0x1,%al
+  1003d4:	74 fa                	je     1003d0 <waitkey>
+  1003d6:	e4 60                	in     $0x60,%al
+  1003d8:	c3                   	ret    
+  1003d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+001003e0 <output_registers>:
+  1003e0:	55                   	push   %ebp
+  1003e1:	89 e5                	mov    %esp,%ebp
+  1003e3:	53                   	push   %ebx
+  1003e4:	83 ec 18             	sub    $0x18,%esp
+  1003e7:	89 c0                	mov    %eax,%eax
+  1003e9:	8d 5d f0             	lea    -0x10(%ebp),%ebx
+  1003ec:	6a 10                	push   $0x10
+  1003ee:	53                   	push   %ebx
+  1003ef:	50                   	push   %eax
+  1003f0:	e8 db 01 00 00       	call   1005d0 <itoa>
+  1003f5:	c7 04 24 99 10 10 00 	movl   $0x101099,(%esp)
+  1003fc:	e8 df fe ff ff       	call   1002e0 <terminal_writestring>
+  100401:	89 1c 24             	mov    %ebx,(%esp)
+  100404:	e8 d7 fe ff ff       	call   1002e0 <terminal_writestring>
+  100409:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  100410:	e8 3b fe ff ff       	call   100250 <terminal_putchar>
+  100415:	89 d8                	mov    %ebx,%eax
+  100417:	83 c4 0c             	add    $0xc,%esp
+  10041a:	6a 10                	push   $0x10
+  10041c:	53                   	push   %ebx
+  10041d:	50                   	push   %eax
+  10041e:	e8 ad 01 00 00       	call   1005d0 <itoa>
+  100423:	c7 04 24 9f 10 10 00 	movl   $0x10109f,(%esp)
+  10042a:	e8 b1 fe ff ff       	call   1002e0 <terminal_writestring>
+  10042f:	89 1c 24             	mov    %ebx,(%esp)
+  100432:	e8 a9 fe ff ff       	call   1002e0 <terminal_writestring>
+  100437:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  10043e:	e8 0d fe ff ff       	call   100250 <terminal_putchar>
+  100443:	89 c8                	mov    %ecx,%eax
+  100445:	83 c4 0c             	add    $0xc,%esp
+  100448:	6a 10                	push   $0x10
+  10044a:	53                   	push   %ebx
+  10044b:	50                   	push   %eax
+  10044c:	e8 7f 01 00 00       	call   1005d0 <itoa>
+  100451:	c7 04 24 a5 10 10 00 	movl   $0x1010a5,(%esp)
+  100458:	e8 83 fe ff ff       	call   1002e0 <terminal_writestring>
+  10045d:	89 1c 24             	mov    %ebx,(%esp)
+  100460:	e8 7b fe ff ff       	call   1002e0 <terminal_writestring>
+  100465:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  10046c:	e8 df fd ff ff       	call   100250 <terminal_putchar>
+  100471:	89 d0                	mov    %edx,%eax
+  100473:	83 c4 0c             	add    $0xc,%esp
+  100476:	6a 10                	push   $0x10
+  100478:	53                   	push   %ebx
+  100479:	50                   	push   %eax
+  10047a:	e8 51 01 00 00       	call   1005d0 <itoa>
+  10047f:	c7 04 24 ab 10 10 00 	movl   $0x1010ab,(%esp)
+  100486:	e8 55 fe ff ff       	call   1002e0 <terminal_writestring>
+  10048b:	89 1c 24             	mov    %ebx,(%esp)
+  10048e:	e8 4d fe ff ff       	call   1002e0 <terminal_writestring>
+  100493:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  10049a:	e8 b1 fd ff ff       	call   100250 <terminal_putchar>
+  10049f:	89 e0                	mov    %esp,%eax
+  1004a1:	83 c4 0c             	add    $0xc,%esp
+  1004a4:	6a 10                	push   $0x10
+  1004a6:	53                   	push   %ebx
+  1004a7:	50                   	push   %eax
+  1004a8:	e8 23 01 00 00       	call   1005d0 <itoa>
+  1004ad:	c7 04 24 b1 10 10 00 	movl   $0x1010b1,(%esp)
+  1004b4:	e8 27 fe ff ff       	call   1002e0 <terminal_writestring>
+  1004b9:	89 1c 24             	mov    %ebx,(%esp)
+  1004bc:	e8 1f fe ff ff       	call   1002e0 <terminal_writestring>
+  1004c1:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  1004c8:	e8 83 fd ff ff       	call   100250 <terminal_putchar>
+  1004cd:	89 e8                	mov    %ebp,%eax
+  1004cf:	83 c4 0c             	add    $0xc,%esp
+  1004d2:	6a 10                	push   $0x10
+  1004d4:	53                   	push   %ebx
+  1004d5:	50                   	push   %eax
+  1004d6:	e8 f5 00 00 00       	call   1005d0 <itoa>
+  1004db:	c7 04 24 b7 10 10 00 	movl   $0x1010b7,(%esp)
+  1004e2:	e8 f9 fd ff ff       	call   1002e0 <terminal_writestring>
+  1004e7:	89 1c 24             	mov    %ebx,(%esp)
+  1004ea:	e8 f1 fd ff ff       	call   1002e0 <terminal_writestring>
+  1004ef:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  1004f6:	e8 55 fd ff ff       	call   100250 <terminal_putchar>
+  1004fb:	89 f0                	mov    %esi,%eax
+  1004fd:	83 c4 0c             	add    $0xc,%esp
+  100500:	6a 10                	push   $0x10
+  100502:	53                   	push   %ebx
+  100503:	50                   	push   %eax
+  100504:	e8 c7 00 00 00       	call   1005d0 <itoa>
+  100509:	c7 04 24 bd 10 10 00 	movl   $0x1010bd,(%esp)
+  100510:	e8 cb fd ff ff       	call   1002e0 <terminal_writestring>
+  100515:	89 1c 24             	mov    %ebx,(%esp)
+  100518:	e8 c3 fd ff ff       	call   1002e0 <terminal_writestring>
+  10051d:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  100524:	e8 27 fd ff ff       	call   100250 <terminal_putchar>
+  100529:	89 f8                	mov    %edi,%eax
+  10052b:	83 c4 0c             	add    $0xc,%esp
+  10052e:	6a 10                	push   $0x10
+  100530:	53                   	push   %ebx
+  100531:	50                   	push   %eax
+  100532:	e8 99 00 00 00       	call   1005d0 <itoa>
+  100537:	c7 04 24 c3 10 10 00 	movl   $0x1010c3,(%esp)
+  10053e:	e8 9d fd ff ff       	call   1002e0 <terminal_writestring>
+  100543:	89 1c 24             	mov    %ebx,(%esp)
+  100546:	e8 95 fd ff ff       	call   1002e0 <terminal_writestring>
+  10054b:	c7 04 24 0a 00 00 00 	movl   $0xa,(%esp)
+  100552:	e8 f9 fc ff ff       	call   100250 <terminal_putchar>
+  100557:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  10055a:	83 c4 10             	add    $0x10,%esp
+  10055d:	c9                   	leave  
+  10055e:	c3                   	ret    
+  10055f:	90                   	nop
+
+00100560 <strlen>:
+  100560:	55                   	push   %ebp
+  100561:	31 c0                	xor    %eax,%eax
+  100563:	89 e5                	mov    %esp,%ebp
+  100565:	8b 55 08             	mov    0x8(%ebp),%edx
+  100568:	80 3a 00             	cmpb   $0x0,(%edx)
+  10056b:	74 0c                	je     100579 <strlen+0x19>
+  10056d:	8d 76 00             	lea    0x0(%esi),%esi
+  100570:	83 c0 01             	add    $0x1,%eax
+  100573:	80 3c 02 00          	cmpb   $0x0,(%edx,%eax,1)
+  100577:	75 f7                	jne    100570 <strlen+0x10>
+  100579:	5d                   	pop    %ebp
+  10057a:	c3                   	ret    
+  10057b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+  10057f:	90                   	nop
+
+00100580 <strrev>:
+  100580:	55                   	push   %ebp
+  100581:	89 e5                	mov    %esp,%ebp
+  100583:	57                   	push   %edi
+  100584:	8b 4d 08             	mov    0x8(%ebp),%ecx
+  100587:	56                   	push   %esi
+  100588:	53                   	push   %ebx
+  100589:	80 39 00             	cmpb   $0x0,(%ecx)
+  10058c:	74 3b                	je     1005c9 <strrev+0x49>
+  10058e:	31 d2                	xor    %edx,%edx
+  100590:	89 d0                	mov    %edx,%eax
+  100592:	83 c2 01             	add    $0x1,%edx
+  100595:	80 3c 11 00          	cmpb   $0x0,(%ecx,%edx,1)
+  100599:	75 f5                	jne    100590 <strrev+0x10>
+  10059b:	89 d3                	mov    %edx,%ebx
+  10059d:	c1 eb 1f             	shr    $0x1f,%ebx
+  1005a0:	01 d3                	add    %edx,%ebx
+  1005a2:	89 df                	mov    %ebx,%edi
+  1005a4:	d1 ff                	sar    %edi
+  1005a6:	83 fa 01             	cmp    $0x1,%edx
+  1005a9:	7e 1e                	jle    1005c9 <strrev+0x49>
+  1005ab:	01 c8                	add    %ecx,%eax
+  1005ad:	31 d2                	xor    %edx,%edx
+  1005af:	90                   	nop
+  1005b0:	0f b6 30             	movzbl (%eax),%esi
+  1005b3:	0f b6 1c 11          	movzbl (%ecx,%edx,1),%ebx
+  1005b7:	83 e8 01             	sub    $0x1,%eax
+  1005ba:	88 58 01             	mov    %bl,0x1(%eax)
+  1005bd:	89 f3                	mov    %esi,%ebx
+  1005bf:	88 1c 11             	mov    %bl,(%ecx,%edx,1)
+  1005c2:	83 c2 01             	add    $0x1,%edx
+  1005c5:	39 fa                	cmp    %edi,%edx
+  1005c7:	7c e7                	jl     1005b0 <strrev+0x30>
+  1005c9:	5b                   	pop    %ebx
+  1005ca:	5e                   	pop    %esi
+  1005cb:	5f                   	pop    %edi
+  1005cc:	5d                   	pop    %ebp
+  1005cd:	c3                   	ret    
+  1005ce:	66 90                	xchg   %ax,%ax
+
+001005d0 <itoa>:
+  1005d0:	55                   	push   %ebp
+  1005d1:	89 e5                	mov    %esp,%ebp
+  1005d3:	57                   	push   %edi
+  1005d4:	8b 45 08             	mov    0x8(%ebp),%eax
+  1005d7:	56                   	push   %esi
+  1005d8:	8b 75 0c             	mov    0xc(%ebp),%esi
+  1005db:	53                   	push   %ebx
+  1005dc:	89 f3                	mov    %esi,%ebx
+  1005de:	85 c0                	test   %eax,%eax
+  1005e0:	74 22                	je     100604 <itoa+0x34>
+  1005e2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  1005e8:	89 c1                	mov    %eax,%ecx
+  1005ea:	83 e1 0f             	and    $0xf,%ecx
+  1005ed:	80 f9 09             	cmp    $0x9,%cl
+  1005f0:	8d 79 30             	lea    0x30(%ecx),%edi
+  1005f3:	8d 51 57             	lea    0x57(%ecx),%edx
+  1005f6:	0f 46 d7             	cmovbe %edi,%edx
+  1005f9:	83 c3 01             	add    $0x1,%ebx
+  1005fc:	88 53 ff             	mov    %dl,-0x1(%ebx)
+  1005ff:	c1 e8 04             	shr    $0x4,%eax
+  100602:	75 e4                	jne    1005e8 <itoa+0x18>
+  100604:	5b                   	pop    %ebx
+  100605:	89 75 08             	mov    %esi,0x8(%ebp)
+  100608:	5e                   	pop    %esi
+  100609:	5f                   	pop    %edi
+  10060a:	5d                   	pop    %ebp
+  10060b:	e9 70 ff ff ff       	jmp    100580 <strrev>

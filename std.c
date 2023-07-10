@@ -33,3 +33,25 @@ void itoa(size_t value, char buf[], int base) {
 
 	strrev(buf);
 }
+
+void memset(void *str, char c, size_t n) {
+	for (size_t i = 0; i < n; i++) {
+	     *(char*) str = c;
+	     str++;
+	}
+}
+
+int strcmp(const char *str1, const char *str2) {
+	while (*str1 == *str2) {
+		str1++;
+		str2++;
+
+		if (*str1 == 0 && *str2 == 0) {
+			return 0;
+		} else if (*str1 == 0 || *str2 == 0) {
+			return 1;
+		}
+	}
+	
+	return 1;
+}
