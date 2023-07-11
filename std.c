@@ -55,3 +55,11 @@ int strcmp(const char *str1, const char *str2) {
 	
 	return 1;
 }
+
+volatile void* mem_top = (volatile void*)0x104000;
+
+void *malloc(size_t size) {
+	void *out = mem_top;
+	mem_top += size;
+	return out;
+}

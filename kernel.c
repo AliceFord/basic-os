@@ -188,6 +188,17 @@ void parse_command(const char* command) {
 		internal_terminal_putchar('Y');
 	} else if (strcmp(command, "regout") == 0) {
 		output_registers();
+	} else if (strcmp(command, "alloctest") == 0) {
+		char *a = (char*) malloc(1);
+		char *b = (char*) malloc(1);
+		char *c = (char*) malloc(1);
+		*a = 'a';
+		*c = 'c';
+		*b = 'b';
+		// drive_write();
+		internal_terminal_putchar(*b);
+		internal_terminal_putchar(*a);
+		internal_terminal_putchar(*c);
 	} else {
 		terminal_write("Command: \'", 10);
 		terminal_write(command, strlen(command));
