@@ -1,5 +1,7 @@
-[] write to drive
-[] basic file system
+[ ] write to drive
+[ ] basic file system
 
-[] basic text editor (nano clone)
-[.] basic command line
+[.] basic text editor (nano clone)
+[x] basic command line
+[ ] port alicelang compiler into kernel
+[ ] run alicelang files from memory (stored later)

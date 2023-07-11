@@ -5,6 +5,7 @@
 #include "io.h"
 #include "std.h"
 #include "kernel.h"
+#include "pico.h"
  
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)
@@ -35,19 +36,6 @@ enum vga_color {
 	VGA_COLOR_LIGHT_BROWN = 14,
 	VGA_COLOR_WHITE = 15,
 };
-
-static const char SCANCODE_SET_1[] = {' ', ' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', '\t',
-						'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',
-						'\0', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`',
-						'\0', '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\0',
-						'*', '\0', ' ', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0', '7', '8', '9', '-', '\0', '4',
-						'5', '6', '+', '1', '2', '3', '0', '.', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-						'\0', '\0', '\0', '\0', '\0', '\0', '\0'};
  
 static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) 
 {
@@ -144,7 +132,7 @@ uint8_t terminal_putchar(char c, uint8_t input_index) {
 		return 3;  // newline
 	}
 
-	if (c == '\0') {
+	if (c == 0) {
 		return 0;  // nothing
 	}
 
@@ -199,6 +187,8 @@ void parse_command(const char* command) {
 		internal_terminal_putchar(*b);
 		internal_terminal_putchar(*a);
 		internal_terminal_putchar(*c);
+	} else if (strcmp(command, "pico") == 0) {
+		run_pico_editor();
 	} else {
 		terminal_write("Command: \'", 10);
 		terminal_write(command, strlen(command));

@@ -1,5 +1,6 @@
 #include "io.h"
 #include "std.h"
+#include "kernel.h"
 
 void outb(uint16_t port, uint8_t val) {
     __asm__ __volatile__ ("outb %0, %1" : : "a"(val), "Nd"(port));
@@ -26,47 +27,47 @@ void output_registers() {
     itoa(reg, buffer, 16);
     terminal_writestring("eax: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%ebx, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("ebx: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%ecx, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("ecx: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%edx, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("edx: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%esp, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("esp: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%ebp, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("ebp: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%esi, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("esi: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 
     __asm__ __volatile__("movl %%edi, %0" : "=r"(reg));
     itoa(reg, buffer, 16);
     terminal_writestring("edi: ");
     terminal_writestring(buffer);
-    terminal_putchar('\n');
+    internal_terminal_putchar('\n');
 }
