@@ -56,6 +56,34 @@ int strcmp(const char *str1, const char *str2) {
 	return 1;
 }
 
+int strncmp(const char *str1, const char *str2, size_t n) {
+	while (*str1 == *str2) {
+		str1++;
+		str2++;
+		n--;
+
+		if (n == 0) return 0;
+
+		if (*str1 == 0 && *str2 == 0) {
+			return 0;
+		} else if (*str1 == 0 || *str2 == 0) {
+			return 1;
+		}
+	}
+	
+	return 1;
+}
+
+char *strchr(const char *string, int c) {
+	while (*string != '\0') {
+		if (*string == c) {
+			return (char*)string;
+		}
+		string++;
+	}
+	return 0;
+}
+
 volatile void* mem_top = (volatile void*)0x104000;
 
 void *malloc(size_t size) {

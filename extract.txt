@@ -217,50 +217,52 @@ Disassembly of section .text:
   100261:	89 e5                	mov    %esp,%ebp
   100263:	83 ec 08             	sub    $0x8,%esp
   100266:	3c 08                	cmp    $0x8,%al
-  100268:	75 0e                	jne    100278 <terminal_putchar.part.0+0x18>
-  10026a:	31 c0                	xor    %eax,%eax
-  10026c:	84 d2                	test   %dl,%dl
-  10026e:	75 48                	jne    1002b8 <terminal_putchar.part.0+0x58>
-  100270:	c9                   	leave  
-  100271:	c3                   	ret    
-  100272:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  100278:	0f b6 15 04 70 10 00 	movzbl 0x107004,%edx
-  10027f:	0f be c0             	movsbl %al,%eax
-  100282:	ff 35 0c 70 10 00    	push   0x10700c
-  100288:	ff 35 08 70 10 00    	push   0x107008
-  10028e:	52                   	push   %edx
-  10028f:	50                   	push   %eax
-  100290:	e8 8b fe ff ff       	call   100120 <terminal_putentryat>
-  100295:	a1 08 70 10 00       	mov    0x107008,%eax
-  10029a:	83 c4 10             	add    $0x10,%esp
-  10029d:	8d 50 01             	lea    0x1(%eax),%edx
-  1002a0:	83 f8 4f             	cmp    $0x4f,%eax
-  1002a3:	74 5b                	je     100300 <terminal_putchar.part.0+0xa0>
-  1002a5:	89 15 08 70 10 00    	mov    %edx,0x107008
+  100268:	74 46                	je     1002b0 <terminal_putchar.part.0+0x50>
+  10026a:	b9 04 00 00 00       	mov    $0x4,%ecx
+  10026f:	3c 1b                	cmp    $0x1b,%al
+  100271:	74 38                	je     1002ab <terminal_putchar.part.0+0x4b>
+  100273:	0f b6 15 04 70 10 00 	movzbl 0x107004,%edx
+  10027a:	0f be c0             	movsbl %al,%eax
+  10027d:	ff 35 0c 70 10 00    	push   0x10700c
+  100283:	ff 35 08 70 10 00    	push   0x107008
+  100289:	52                   	push   %edx
+  10028a:	50                   	push   %eax
+  10028b:	e8 90 fe ff ff       	call   100120 <terminal_putentryat>
+  100290:	a1 08 70 10 00       	mov    0x107008,%eax
+  100295:	83 c4 10             	add    $0x10,%esp
+  100298:	8d 50 01             	lea    0x1(%eax),%edx
+  10029b:	83 f8 4f             	cmp    $0x4f,%eax
+  10029e:	74 60                	je     100300 <terminal_putchar.part.0+0xa0>
+  1002a0:	89 15 08 70 10 00    	mov    %edx,0x107008
+  1002a6:	b9 01 00 00 00       	mov    $0x1,%ecx
   1002ab:	c9                   	leave  
-  1002ac:	b8 01 00 00 00       	mov    $0x1,%eax
-  1002b1:	c3                   	ret    
-  1002b2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  1002b8:	a1 08 70 10 00       	mov    0x107008,%eax
-  1002bd:	8b 15 0c 70 10 00    	mov    0x10700c,%edx
-  1002c3:	85 c0                	test   %eax,%eax
-  1002c5:	75 61                	jne    100328 <terminal_putchar.part.0+0xc8>
-  1002c7:	85 d2                	test   %edx,%edx
-  1002c9:	74 18                	je     1002e3 <terminal_putchar.part.0+0x83>
-  1002cb:	83 ea 01             	sub    $0x1,%edx
-  1002ce:	b8 4f 00 00 00       	mov    $0x4f,%eax
-  1002d3:	c7 05 08 70 10 00 4f 	movl   $0x4f,0x107008
-  1002da:	00 00 00 
-  1002dd:	89 15 0c 70 10 00    	mov    %edx,0x10700c
-  1002e3:	52                   	push   %edx
-  1002e4:	50                   	push   %eax
-  1002e5:	0f b6 05 04 70 10 00 	movzbl 0x107004,%eax
-  1002ec:	50                   	push   %eax
-  1002ed:	6a 20                	push   $0x20
-  1002ef:	e8 2c fe ff ff       	call   100120 <terminal_putentryat>
-  1002f4:	83 c4 10             	add    $0x10,%esp
-  1002f7:	b8 02 00 00 00       	mov    $0x2,%eax
-  1002fc:	c9                   	leave  
+  1002ac:	89 c8                	mov    %ecx,%eax
+  1002ae:	c3                   	ret    
+  1002af:	90                   	nop
+  1002b0:	31 c9                	xor    %ecx,%ecx
+  1002b2:	84 d2                	test   %dl,%dl
+  1002b4:	74 f5                	je     1002ab <terminal_putchar.part.0+0x4b>
+  1002b6:	a1 08 70 10 00       	mov    0x107008,%eax
+  1002bb:	8b 15 0c 70 10 00    	mov    0x10700c,%edx
+  1002c1:	85 c0                	test   %eax,%eax
+  1002c3:	75 63                	jne    100328 <terminal_putchar.part.0+0xc8>
+  1002c5:	85 d2                	test   %edx,%edx
+  1002c7:	74 18                	je     1002e1 <terminal_putchar.part.0+0x81>
+  1002c9:	83 ea 01             	sub    $0x1,%edx
+  1002cc:	b8 4f 00 00 00       	mov    $0x4f,%eax
+  1002d1:	c7 05 08 70 10 00 4f 	movl   $0x4f,0x107008
+  1002d8:	00 00 00 
+  1002db:	89 15 0c 70 10 00    	mov    %edx,0x10700c
+  1002e1:	52                   	push   %edx
+  1002e2:	50                   	push   %eax
+  1002e3:	0f b6 05 04 70 10 00 	movzbl 0x107004,%eax
+  1002ea:	50                   	push   %eax
+  1002eb:	6a 20                	push   $0x20
+  1002ed:	e8 2e fe ff ff       	call   100120 <terminal_putentryat>
+  1002f2:	b9 02 00 00 00       	mov    $0x2,%ecx
+  1002f7:	83 c4 10             	add    $0x10,%esp
+  1002fa:	c9                   	leave  
+  1002fb:	89 c8                	mov    %ecx,%eax
   1002fd:	c3                   	ret    
   1002fe:	66 90                	xchg   %ax,%ax
   100300:	8b 15 0c 70 10 00    	mov    0x10700c,%edx
@@ -271,11 +273,11 @@ Disassembly of section .text:
   100316:	ba 00 00 00 00       	mov    $0x0,%edx
   10031b:	0f 44 c2             	cmove  %edx,%eax
   10031e:	a3 0c 70 10 00       	mov    %eax,0x10700c
-  100323:	eb 86                	jmp    1002ab <terminal_putchar.part.0+0x4b>
+  100323:	eb 81                	jmp    1002a6 <terminal_putchar.part.0+0x46>
   100325:	8d 76 00             	lea    0x0(%esi),%esi
   100328:	83 e8 01             	sub    $0x1,%eax
   10032b:	a3 08 70 10 00       	mov    %eax,0x107008
-  100330:	eb b1                	jmp    1002e3 <terminal_putchar.part.0+0x83>
+  100330:	eb af                	jmp    1002e1 <terminal_putchar.part.0+0x81>
   100332:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
   100339:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
@@ -473,13 +475,13 @@ Disassembly of section .text:
   100543:	75 73                	jne    1005b8 <parse_command+0xe8>
   100545:	83 ec 0c             	sub    $0xc,%esp
   100548:	6a 01                	push   $0x1
-  10054a:	e8 91 05 00 00       	call   100ae0 <malloc>
+  10054a:	e8 f1 05 00 00       	call   100b40 <malloc>
   10054f:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
   100556:	89 c6                	mov    %eax,%esi
-  100558:	e8 83 05 00 00       	call   100ae0 <malloc>
+  100558:	e8 e3 05 00 00       	call   100b40 <malloc>
   10055d:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
   100564:	89 c7                	mov    %eax,%edi
-  100566:	e8 75 05 00 00       	call   100ae0 <malloc>
+  100566:	e8 d5 05 00 00       	call   100b40 <malloc>
   10056b:	c6 06 61             	movb   $0x61,(%esi)
   10056e:	c6 00 63             	movb   $0x63,(%eax)
   100571:	89 c3                	mov    %eax,%ebx
@@ -508,7 +510,7 @@ Disassembly of section .text:
   1005c6:	83 c4 10             	add    $0x10,%esp
   1005c9:	85 c0                	test   %eax,%eax
   1005cb:	75 13                	jne    1005e0 <parse_command+0x110>
-  1005cd:	e8 2e 05 00 00       	call   100b00 <run_pico_editor>
+  1005cd:	e8 5e 06 00 00       	call   100c30 <run_pico_editor>
   1005d2:	e9 21 ff ff ff       	jmp    1004f8 <parse_command+0x28>
   1005d7:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
   1005de:	66 90                	xchg   %ax,%ax
@@ -710,7 +712,7 @@ Disassembly of section .text:
   100833:	53                   	push   %ebx
   100834:	83 ec 18             	sub    $0x18,%esp
   100837:	89 c0                	mov    %eax,%eax
-  100839:	8d 5d f0             	lea    -0x10(%ebp),%ebx
+  100839:	8d 5d ee             	lea    -0x12(%ebp),%ebx
   10083c:	6a 10                	push   $0x10
   10083e:	53                   	push   %ebx
   10083f:	50                   	push   %eax
@@ -955,70 +957,201 @@ Disassembly of section .text:
   100adb:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
   100adf:	90                   	nop
 
-00100ae0 <malloc>:
+00100ae0 <strncmp>:
   100ae0:	55                   	push   %ebp
-  100ae1:	a1 00 20 10 00       	mov    0x102000,%eax
-  100ae6:	89 e5                	mov    %esp,%ebp
-  100ae8:	8b 55 08             	mov    0x8(%ebp),%edx
-  100aeb:	5d                   	pop    %ebp
-  100aec:	01 c2                	add    %eax,%edx
-  100aee:	89 15 00 20 10 00    	mov    %edx,0x102000
-  100af4:	c3                   	ret    
-  100af5:	66 90                	xchg   %ax,%ax
-  100af7:	66 90                	xchg   %ax,%ax
-  100af9:	66 90                	xchg   %ax,%ax
-  100afb:	66 90                	xchg   %ax,%ax
-  100afd:	66 90                	xchg   %ax,%ax
-  100aff:	90                   	nop
-
-00100b00 <run_pico_editor>:
-  100b00:	55                   	push   %ebp
-  100b01:	89 e5                	mov    %esp,%ebp
-  100b03:	56                   	push   %esi
-  100b04:	53                   	push   %ebx
-  100b05:	83 ec 0c             	sub    $0xc,%esp
-  100b08:	68 4a 11 10 00       	push   $0x10114a
-  100b0d:	e8 5e f9 ff ff       	call   100470 <terminal_writestring>
-  100b12:	c7 04 24 06 00 00 00 	movl   $0x6,(%esp)
-  100b19:	e8 c2 ff ff ff       	call   100ae0 <malloc>
-  100b1e:	ba 90 c3 ff ff       	mov    $0xffffc390,%edx
-  100b23:	c7 00 b4 21 90 90    	movl   $0x909021b4,(%eax)
-  100b29:	66 89 50 04          	mov    %dx,0x4(%eax)
-  100b2d:	89 c0                	mov    %eax,%eax
-  100b2f:	ff d0                	call   *%eax
-  100b31:	88 e0                	mov    %ah,%al
-  100b33:	0f be c0             	movsbl %al,%eax
-  100b36:	89 04 24             	mov    %eax,(%esp)
-  100b39:	e8 02 f8 ff ff       	call   100340 <internal_terminal_putchar>
-  100b3e:	90                   	nop
+  100ae1:	89 e5                	mov    %esp,%ebp
+  100ae3:	53                   	push   %ebx
+  100ae4:	8b 45 08             	mov    0x8(%ebp),%eax
+  100ae7:	8b 4d 10             	mov    0x10(%ebp),%ecx
+  100aea:	8b 55 0c             	mov    0xc(%ebp),%edx
+  100aed:	8d 4c 08 ff          	lea    -0x1(%eax,%ecx,1),%ecx
+  100af1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100af8:	0f b6 1a             	movzbl (%edx),%ebx
+  100afb:	38 18                	cmp    %bl,(%eax)
+  100afd:	75 29                	jne    100b28 <strncmp+0x48>
+  100aff:	83 c2 01             	add    $0x1,%edx
+  100b02:	39 c8                	cmp    %ecx,%eax
+  100b04:	74 32                	je     100b38 <strncmp+0x58>
+  100b06:	80 78 01 00          	cmpb   $0x0,0x1(%eax)
+  100b0a:	75 14                	jne    100b20 <strncmp+0x40>
+  100b0c:	31 c0                	xor    %eax,%eax
+  100b0e:	80 3a 00             	cmpb   $0x0,(%edx)
+  100b11:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  100b14:	c9                   	leave  
+  100b15:	0f 95 c0             	setne  %al
+  100b18:	c3                   	ret    
+  100b19:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100b20:	83 c0 01             	add    $0x1,%eax
+  100b23:	80 3a 00             	cmpb   $0x0,(%edx)
+  100b26:	75 d0                	jne    100af8 <strncmp+0x18>
+  100b28:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  100b2b:	b8 01 00 00 00       	mov    $0x1,%eax
+  100b30:	c9                   	leave  
+  100b31:	c3                   	ret    
+  100b32:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  100b38:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+  100b3b:	31 c0                	xor    %eax,%eax
+  100b3d:	c9                   	leave  
+  100b3e:	c3                   	ret    
   100b3f:	90                   	nop
-  100b40:	90                   	nop
-  100b41:	90                   	nop
-  100b42:	90                   	nop
-  100b43:	31 db                	xor    %ebx,%ebx
-  100b45:	83 c4 10             	add    $0x10,%esp
-  100b48:	31 f6                	xor    %esi,%esi
-  100b4a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  100b50:	e8 cb fc ff ff       	call   100820 <waitkey>
-  100b55:	0f be d0             	movsbl %al,%edx
-  100b58:	0f be 92 a0 10 10 00 	movsbl 0x1010a0(%edx),%edx
-  100b5f:	84 c0                	test   %al,%al
-  100b61:	78 ed                	js     100b50 <run_pico_editor+0x50>
-  100b63:	83 ec 08             	sub    $0x8,%esp
-  100b66:	56                   	push   %esi
-  100b67:	52                   	push   %edx
-  100b68:	e8 13 f8 ff ff       	call   100380 <terminal_putchar>
-  100b6d:	83 c4 10             	add    $0x10,%esp
-  100b70:	3c 01                	cmp    $0x1,%al
-  100b72:	74 08                	je     100b7c <run_pico_editor+0x7c>
-  100b74:	3c 02                	cmp    $0x2,%al
-  100b76:	74 10                	je     100b88 <run_pico_editor+0x88>
-  100b78:	3c 03                	cmp    $0x3,%al
-  100b7a:	75 d4                	jne    100b50 <run_pico_editor+0x50>
-  100b7c:	83 c3 01             	add    $0x1,%ebx
-  100b7f:	0f b6 f3             	movzbl %bl,%esi
-  100b82:	eb cc                	jmp    100b50 <run_pico_editor+0x50>
-  100b84:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  100b88:	83 eb 01             	sub    $0x1,%ebx
-  100b8b:	0f b6 f3             	movzbl %bl,%esi
-  100b8e:	eb c0                	jmp    100b50 <run_pico_editor+0x50>
+
+00100b40 <malloc>:
+  100b40:	55                   	push   %ebp
+  100b41:	a1 00 20 10 00       	mov    0x102000,%eax
+  100b46:	89 e5                	mov    %esp,%ebp
+  100b48:	8b 55 08             	mov    0x8(%ebp),%edx
+  100b4b:	5d                   	pop    %ebp
+  100b4c:	01 c2                	add    %eax,%edx
+  100b4e:	89 15 00 20 10 00    	mov    %edx,0x102000
+  100b54:	c3                   	ret    
+  100b55:	66 90                	xchg   %ax,%ax
+  100b57:	66 90                	xchg   %ax,%ax
+  100b59:	66 90                	xchg   %ax,%ax
+  100b5b:	66 90                	xchg   %ax,%ax
+  100b5d:	66 90                	xchg   %ax,%ax
+  100b5f:	90                   	nop
+
+00100b60 <compile>:
+  100b60:	55                   	push   %ebp
+  100b61:	89 e5                	mov    %esp,%ebp
+  100b63:	57                   	push   %edi
+  100b64:	56                   	push   %esi
+  100b65:	53                   	push   %ebx
+  100b66:	83 ec 48             	sub    $0x48,%esp
+  100b69:	8b 7d 08             	mov    0x8(%ebp),%edi
+  100b6c:	68 00 04 00 00       	push   $0x400
+  100b71:	e8 ca ff ff ff       	call   100b40 <malloc>
+  100b76:	83 c4 10             	add    $0x10,%esp
+  100b79:	80 3f 00             	cmpb   $0x0,(%edi)
+  100b7c:	c7 45 d4 00 00 00 00 	movl   $0x0,-0x2c(%ebp)
+  100b83:	c7 45 d8 00 00 00 00 	movl   $0x0,-0x28(%ebp)
+  100b8a:	89 c2                	mov    %eax,%edx
+  100b8c:	c7 45 dc 00 00 00 00 	movl   $0x0,-0x24(%ebp)
+  100b93:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+  100b9a:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+  100ba1:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+  100ba4:	74 63                	je     100c09 <compile+0xa9>
+  100ba6:	89 45 c0             	mov    %eax,-0x40(%ebp)
+  100ba9:	8d 5d d4             	lea    -0x2c(%ebp),%ebx
+  100bac:	8d 75 e8             	lea    -0x18(%ebp),%esi
+  100baf:	90                   	nop
+  100bb0:	89 fa                	mov    %edi,%edx
+  100bb2:	89 d8                	mov    %ebx,%eax
+  100bb4:	eb 16                	jmp    100bcc <compile+0x6c>
+  100bb6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100bbd:	8d 76 00             	lea    0x0(%esi),%esi
+  100bc0:	88 08                	mov    %cl,(%eax)
+  100bc2:	83 c0 01             	add    $0x1,%eax
+  100bc5:	83 c2 01             	add    $0x1,%edx
+  100bc8:	39 f0                	cmp    %esi,%eax
+  100bca:	74 54                	je     100c20 <compile+0xc0>
+  100bcc:	0f b6 0a             	movzbl (%edx),%ecx
+  100bcf:	80 f9 0a             	cmp    $0xa,%cl
+  100bd2:	75 ec                	jne    100bc0 <compile+0x60>
+  100bd4:	89 d7                	mov    %edx,%edi
+  100bd6:	83 ec 04             	sub    $0x4,%esp
+  100bd9:	6a 03                	push   $0x3
+  100bdb:	68 98 11 10 00       	push   $0x101198
+  100be0:	53                   	push   %ebx
+  100be1:	e8 fa fe ff ff       	call   100ae0 <strncmp>
+  100be6:	83 c4 10             	add    $0x10,%esp
+  100be9:	85 c0                	test   %eax,%eax
+  100beb:	75 14                	jne    100c01 <compile+0xa1>
+  100bed:	8b 45 c4             	mov    -0x3c(%ebp),%eax
+  100bf0:	0f b7 15 a2 11 10 00 	movzwl 0x1011a2,%edx
+  100bf7:	83 c0 02             	add    $0x2,%eax
+  100bfa:	66 89 50 fe          	mov    %dx,-0x2(%eax)
+  100bfe:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+  100c01:	80 3f 00             	cmpb   $0x0,(%edi)
+  100c04:	75 aa                	jne    100bb0 <compile+0x50>
+  100c06:	8b 55 c0             	mov    -0x40(%ebp),%edx
+  100c09:	8b 45 c4             	mov    -0x3c(%ebp),%eax
+  100c0c:	c6 00 c3             	movb   $0xc3,(%eax)
+  100c0f:	8d 65 f4             	lea    -0xc(%ebp),%esp
+  100c12:	89 d0                	mov    %edx,%eax
+  100c14:	5b                   	pop    %ebx
+  100c15:	5e                   	pop    %esi
+  100c16:	5f                   	pop    %edi
+  100c17:	5d                   	pop    %ebp
+  100c18:	c3                   	ret    
+  100c19:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100c20:	83 c7 13             	add    $0x13,%edi
+  100c23:	eb b1                	jmp    100bd6 <compile+0x76>
+  100c25:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100c2c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+
+00100c30 <run_pico_editor>:
+  100c30:	55                   	push   %ebp
+  100c31:	89 e5                	mov    %esp,%ebp
+  100c33:	57                   	push   %edi
+  100c34:	56                   	push   %esi
+  100c35:	8d bd e8 fb ff ff    	lea    -0x418(%ebp),%edi
+  100c3b:	31 f6                	xor    %esi,%esi
+  100c3d:	53                   	push   %ebx
+  100c3e:	81 ec 28 04 00 00    	sub    $0x428,%esp
+  100c44:	68 9c 11 10 00       	push   $0x10119c
+  100c49:	e8 22 f8 ff ff       	call   100470 <terminal_writestring>
+  100c4e:	31 c0                	xor    %eax,%eax
+  100c50:	b9 00 01 00 00       	mov    $0x100,%ecx
+  100c55:	83 c4 10             	add    $0x10,%esp
+  100c58:	f3 ab                	rep stos %eax,%es:(%edi)
+  100c5a:	31 c0                	xor    %eax,%eax
+  100c5c:	31 ff                	xor    %edi,%edi
+  100c5e:	66 89 85 e6 fb ff ff 	mov    %ax,-0x41a(%ebp)
+  100c65:	8d 76 00             	lea    0x0(%esi),%esi
+  100c68:	e8 b3 fb ff ff       	call   100820 <waitkey>
+  100c6d:	0f be d0             	movsbl %al,%edx
+  100c70:	0f b6 9a a0 10 10 00 	movzbl 0x1010a0(%edx),%ebx
+  100c77:	84 c0                	test   %al,%al
+  100c79:	78 ed                	js     100c68 <run_pico_editor+0x38>
+  100c7b:	83 ec 08             	sub    $0x8,%esp
+  100c7e:	0f be c3             	movsbl %bl,%eax
+  100c81:	56                   	push   %esi
+  100c82:	50                   	push   %eax
+  100c83:	e8 f8 f6 ff ff       	call   100380 <terminal_putchar>
+  100c88:	83 c4 10             	add    $0x10,%esp
+  100c8b:	3c 01                	cmp    $0x1,%al
+  100c8d:	74 31                	je     100cc0 <run_pico_editor+0x90>
+  100c8f:	3c 02                	cmp    $0x2,%al
+  100c91:	74 4d                	je     100ce0 <run_pico_editor+0xb0>
+  100c93:	3c 03                	cmp    $0x3,%al
+  100c95:	74 71                	je     100d08 <run_pico_editor+0xd8>
+  100c97:	3c 04                	cmp    $0x4,%al
+  100c99:	75 cd                	jne    100c68 <run_pico_editor+0x38>
+  100c9b:	83 ec 0c             	sub    $0xc,%esp
+  100c9e:	8d 85 e8 fb ff ff    	lea    -0x418(%ebp),%eax
+  100ca4:	50                   	push   %eax
+  100ca5:	e8 b6 fe ff ff       	call   100b60 <compile>
+  100caa:	89 c0                	mov    %eax,%eax
+  100cac:	ff d0                	call   *%eax
+  100cae:	88 e0                	mov    %ah,%al
+  100cb0:	0f be c0             	movsbl %al,%eax
+  100cb3:	89 04 24             	mov    %eax,(%esp)
+  100cb6:	e8 85 f6 ff ff       	call   100340 <internal_terminal_putchar>
+  100cbb:	83 c4 10             	add    $0x10,%esp
+  100cbe:	eb a8                	jmp    100c68 <run_pico_editor+0x38>
+  100cc0:	66 83 85 e6 fb ff ff 	addw   $0x1,-0x41a(%ebp)
+  100cc7:	01 
+  100cc8:	88 9c 3d e8 fb ff ff 	mov    %bl,-0x418(%ebp,%edi,1)
+  100ccf:	0f b7 bd e6 fb ff ff 	movzwl -0x41a(%ebp),%edi
+  100cd6:	89 f8                	mov    %edi,%eax
+  100cd8:	0f b6 f0             	movzbl %al,%esi
+  100cdb:	eb 8b                	jmp    100c68 <run_pico_editor+0x38>
+  100cdd:	8d 76 00             	lea    0x0(%esi),%esi
+  100ce0:	66 83 ad e6 fb ff ff 	subw   $0x1,-0x41a(%ebp)
+  100ce7:	01 
+  100ce8:	c6 84 3d e7 fb ff ff 	movb   $0x0,-0x419(%ebp,%edi,1)
+  100cef:	00 
+  100cf0:	0f b7 bd e6 fb ff ff 	movzwl -0x41a(%ebp),%edi
+  100cf7:	89 f8                	mov    %edi,%eax
+  100cf9:	0f b6 f0             	movzbl %al,%esi
+  100cfc:	e9 67 ff ff ff       	jmp    100c68 <run_pico_editor+0x38>
+  100d01:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  100d08:	66 83 85 e6 fb ff ff 	addw   $0x1,-0x41a(%ebp)
+  100d0f:	01 
+  100d10:	c6 84 3d e8 fb ff ff 	movb   $0xa,-0x418(%ebp,%edi,1)
+  100d17:	0a 
+  100d18:	0f b7 bd e6 fb ff ff 	movzwl -0x41a(%ebp),%edi
+  100d1f:	89 f8                	mov    %edi,%eax
+  100d21:	0f b6 f0             	movzbl %al,%esi
+  100d24:	e9 3f ff ff ff       	jmp    100c68 <run_pico_editor+0x38>

@@ -21,7 +21,7 @@ char waitkey() {
 
 void output_registers() {
     uint32_t reg;
-    char buffer[8];
+    char buffer[10];
 
     __asm__ __volatile__("movl %%eax, %0" : "=r"(reg));
     itoa(reg, buffer, 16);

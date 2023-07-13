@@ -153,6 +153,10 @@ uint8_t terminal_putchar(char c, uint8_t input_index) {
 		}
 	}
 
+	if (c == '\x1b') {
+		return 4;  // escape
+	}
+
 	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 	if (++terminal_column == VGA_WIDTH) {
 		terminal_column = 0;
